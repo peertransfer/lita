@@ -34,7 +34,8 @@ module Lita
     #   already in the group.
     # @since 4.0.0
     def add_user_to_group!(user, group)
-      redis.sadd(normalize_group(group), user.id)
+      res = redis.sadd(normalize_group(group), user.id)
+      res == true || res >= 1
     end
 
     # Removes a user from an authorization group.
@@ -58,7 +59,8 @@ module Lita
     #   not in the group.
     # @since 4.0.0
     def remove_user_from_group!(user, group)
-      redis.srem(normalize_group(group), user.id)
+      res = redis.srem(normalize_group(group), user.id)
+      res == true || res >= 1
     end
 
     # Checks if a user is in an authorization group.

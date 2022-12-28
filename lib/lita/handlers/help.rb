@@ -151,7 +151,7 @@ module Lita
       def help_command(response, route, command, description)
         command = "#{address}#{command}" if route.command?
         message = "#{command} - #{description}"
-        message << t("unauthorized") unless authorized?(response.user, route.required_groups)
+        message += t("unauthorized") unless authorized?(response.user, route.required_groups)
         message
       end
 
